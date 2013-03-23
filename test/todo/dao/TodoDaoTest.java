@@ -1,5 +1,8 @@
 package todo.dao;
 
+import java.util.Date;
+import java.util.List;
+
 import org.slim3.datastore.Datastore;
 import org.slim3.tester.AppEngineTestCase;
 import org.junit.Before;
@@ -58,13 +61,33 @@ public class TodoDaoTest extends AppEngineTestCase {
        assertThat(todo.getFinishedAt(),is(nullValue()));
    }
    
+   @Test(expected=NullPointerException.class)
+   public void create_body‚ªnull(){
+       dao.create(null);
+   }
    
+   @Test
+   public void find(){
    
-   
-   
-   
-   
-   
-   
-   
+       List<Todo>todos=dao.find(false);
+       assertThat(todos.size(),is(2));
+       assertThat(todos.get(0).isFinished(),is(false));
+       assertThat(todos.get(0).getUserId(),is("user01"));
+       assertThat(todos.get(1).isFinished(),is(false));
+       assertThat(todos.get(1).getUserId(),is("user01"));
+       Date createdAt0=todos.get(0).getCreatedAt();
+       Date createdAt1=todos.get(1).getCreatedAt();
+       assertThat(createdAt0.compareTo(createdAt1)>=0,is(true));
+       
+       todos=dao.find(true);
+       assertThat(todos.size(),is(2));
+       assertThat(todos.get(0).isFinished(),is(true));
+       assertThat(todos.get(0).getUserId(),is("user01"));
+       assertThat(todos.get(1).isFinished(),is(true));
+       assertThat(todos.get(1).getUserId(),is("user01"));
+       Date finishedAt0=todos.get(0).getFinishedAt();
+       Date finishedAt1=todos.get(1).getFinishedAt();
+       assertThat(createdAt0.compareTo(createdAt1)>=0,is(true));
+    }
+
 }
