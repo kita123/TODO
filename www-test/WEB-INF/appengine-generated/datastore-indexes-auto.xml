@@ -1,0 +1,19 @@
+<!-- Indices written at Sat, 13 Apr 2013 20:07:04 JST -->
+
+<datastore-indexes>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="Todo" ancestor="false" source="auto">
+        <property name="finished" direction="asc"/>
+        <property name="userId" direction="asc"/>
+        <property name="createdAt" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="Todo" ancestor="false" source="auto">
+        <property name="finished" direction="asc"/>
+        <property name="userId" direction="asc"/>
+        <property name="finishedAt" direction="desc"/>
+    </datastore-index>
+
+</datastore-indexes>

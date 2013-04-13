@@ -34,6 +34,10 @@ public class TestUtil {
         todo.setCreatedAt(new Date());
         todo.setFinished(finished);
         todo.setFinishedAt(finished ? new Date():null);
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException ignore) {
+        }
         return todo;
     }
 
