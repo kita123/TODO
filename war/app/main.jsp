@@ -90,6 +90,45 @@ $(function(){
 		e.preventDefault();
 	});
 	
+	$("#todos").on("click","li a.delete_link",function(e){
+		var li = $(this).parent();
+		$.ajax({
+			type:"DELETE",
+			url:"/api/todos?key="+$(this).data("todoKey")
+		}).done(function(res,status,xhr){
+			if(xhr.status !== 200){
+				showMessage("TODO削除に失敗しました","error");
+				return;
+			}
+			li.animate({
+				opacity:0
+			},500,function(){
+				li.remove();
+			});
+		});
+		e.preventDefault();
+	});
+	
+	$("#todos").on("click","li a.finish_link",function(e){
+		var li = $(this).parent();
+		$.ajax({
+			type:"PUT",
+			url:"/api/todos?key="+$(this).data("todoKey"),
+			data:"finished=true",
+			dataType:"json"
+		}).done(function(res,status,xhr){
+			if(xhr.status !==200){
+				showMessage("TODO完了に失敗しました","error");
+				return;
+			}
+			li.animate({
+				opacity:0
+			},500,function(){
+				li.remove();
+			});	
+		});
+		e.preventDefault();
+		});
 	
 	loadTodos();
 });
